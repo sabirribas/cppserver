@@ -1,4 +1,9 @@
-#define DEBUG true
+/*
+ * examples.cpp
+ *
+ *  Created on: Mar 23, 2015
+ *      Author: sabir
+ */
 
 #include <cstdio>
 #include <cstdlib>
