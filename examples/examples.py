@@ -3,9 +3,13 @@ sys.path.append('../')
 from client import RpcTcpClient
 import json
 
-method,params = 'echo',{'query':'query'}
-
 client = RpcTcpClient(host='localhost',port=5001)
+
+method,params = 'test',{'query':'query'}
+resultstring = client.call(method,params)
+print resultstring
+
+method,params = 'echo',{'query':'query'}
 resultstring = client.call(method,params)
 result = json.loads(resultstring)
 print result
