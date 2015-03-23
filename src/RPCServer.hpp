@@ -11,26 +11,32 @@
 // sudo apt-get install libjsoncpp-dev libjsoncpp0 # Ubuntu
 #include <json/json.h>
 
-class RPCProc
+class Method
 {
 public:
-	RPCProc(){};
-	virtual string run(Json::Value & params){return "Not implemented yet!";};
-	virtual ~RPCProc(){};
+	Method(){}
+	virtual Json::Value run(Json::Value &params)
+	{
+		return Json::Value("Not implemented yet!");
+	}
+	virtual ~Method(){}
 };
 
 class RPCServer
 {
 protected:
-	map<string,RPCProc* > methods;
+	map<string,Method* > methods;
 public:
-	RPCServer(){};
-	virtual ~RPCServer(){};
+	RPCServer(){}
+	virtual ~RPCServer(){}
 	virtual void init(){}
 	virtual void serve(){}
 	virtual void finish(){}
-	virtual string run(string method,Json::Value & params){return "";}
-	virtual void addmethod(string methodname,RPCProc * method)
+	virtual Json::Value run(string method,Json::Value & params)
+	{
+		return Json::Value();
+	}
+	virtual void addmethod(string methodname,Method * method)
 	{
 		methods[methodname] = method;
 	}

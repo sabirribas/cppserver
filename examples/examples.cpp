@@ -5,19 +5,22 @@
 using namespace std;
 #include "../cppserver.h"
 
-class Echo : public RPCProc
+class EchoMethod : public Method
 {
 public:
-	Echo():RPCProc(){};
-	virtual string run(Json::Value & params)
+	EchoMethod():Method(){};
+	virtual Json::Value run(Json::Value & params)
 	{
-		/* reading query from parameters */
-		string query(params.get("query","").asString());
-		cout << "Query: '" << query << "'" << endl;
-		/* filling results */
-		return "{\"result\":\"" + query + "\"}";
+		Json::Value result;
+		result["echo"] = params.get("query","").asString();
+		result["list"] = Json::arrayValue;
+		result["list"].append(1);
+		result["list"].append(2);
+		result["dict"] = Json::Value();
+		result["dict"]["key"] = "value";
+		return result;
 	};
-	virtual ~Echo(){};
+	virtual ~EchoMethod(){};
 };
 
 int main()
@@ -25,8 +28,8 @@ int main()
 	printf("Testing cppserver\n");
 
 	RPCServerTCP server(5001);
-	server.addmethod("test",new RPCProc());
-	server.addmethod("echo",new Echo());
+	server.addmethod("test",new Method());
+	server.addmethod("echo",new EchoMethod());
 	server.init();
 
 	printf("\nSuccess!\n");

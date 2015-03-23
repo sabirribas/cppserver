@@ -54,6 +54,7 @@ public:
 			std::string msg;
 			new_sock >> msg;
 
+			cout << "================================================" << endl;
 			cout << msg << endl;
 
 			/* reading json from message {"method":"name","params":{}} */
@@ -73,17 +74,20 @@ public:
 			Json::Value params = root.get("params", 0);
 
 			// sending result
-			new_sock << run(method,params);
+			cout << "------------------------------------------------" << endl;
+			string result = run(method,params).toStyledString();
+			cout << result << endl;
+			new_sock << result;
 		}
 		catch ( SocketException& ) {}
 
 	}
 	virtual void finish(){}
-	virtual string run(string method,Json::Value & params)
+	virtual Json::Value run(string method,Json::Value & params)
 	{
-		map<string,RPCProc*>::iterator it = methods.find(method);
+		map<string,Method*>::iterator it = methods.find(method);
 		if (it == methods.end()) {cout << "ERROR: wrong method" << endl; exit(1);}
-		RPCProc * proc = methods[method];
+		Method * proc = methods[method];
 		return proc->run(params);
 	}
 };

@@ -7,7 +7,8 @@ client = RpcTcpClient(host='localhost',port=5001)
 
 method,params = 'test',{'query':'query'}
 resultstring = client.call(method,params)
-print resultstring
+result = json.loads(resultstring)
+print result
 
 method,params = 'echo',{'query':'query'}
 resultstring = client.call(method,params)
