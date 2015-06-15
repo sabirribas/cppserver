@@ -11,3 +11,8 @@ make && ./examples
 ```bash
 python examples.py
 ```
+
+## Dependency
+```bash
+sudo apt-get install libjsoncpp-dev
+```
