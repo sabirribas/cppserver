@@ -8,6 +8,7 @@
 #ifndef CPPSERVER_H_
 #define CPPSERVER_H_
 
+#include <iostream>
 #include "src/RPCServerTCP.hpp"
 
 #endif
